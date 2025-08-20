@@ -1,5 +1,12 @@
+import { ResetStyle } from "./ResetStyle"
+
 function App() {
-  return <>APP</>
+  return (
+    <>
+      <ResetStyle />
+      APP
+    </>
+  )
 }
 
 export default App
