@@ -13,7 +13,7 @@ interface Typography {
   }
 }
 
-interface DesignTokens {
+export interface DesignTokens {
   typography: Typography
   spacing: (factor: number) => string
 }

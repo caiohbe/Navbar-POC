@@ -1,7 +1,8 @@
 import { DefaultTheme } from "styled-components"
+import type { DesignTokens } from "./designTokens"
 
 declare module "styled-components" {
-  export interface DefaultTheme {
+  export interface DefaultTheme extends DesignTokens {
     colors: {
       primary: string
       secondary: string
@@ -16,20 +17,5 @@ declare module "styled-components" {
         inverse: string
       }
     }
-    typography: {
-      fontFamily: string
-      sizes: {
-        small: string
-        base: string
-        large: string
-        xLarge: string
-      }
-      weight: {
-        regular: number
-        medium: number
-        bold: number
-      }
-    }
-    spacing: (factor: number) => string
   }
 }
