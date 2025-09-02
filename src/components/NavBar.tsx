@@ -3,6 +3,7 @@ import { NavLink } from "react-router"
 import styled from "styled-components"
 import burgerButton from "../assets/burgerButton.svg"
 import homeLogo from "../assets/homeLogo.svg"
+import closeButton from "../assets/closeButton.svg"
 
 interface NavItem {
   label: string
@@ -42,6 +43,15 @@ const StyledNavLink = styled(StyledLink)`
     background-color: ${(props) => props.theme.colors.secondary};
     color: ${(props) => props.theme.colors.text.primary};
   }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    &.active {
+      border: none;
+      background-color: ${(props) => props.theme.colors.secondary};
+      color: ${(props) => props.theme.colors.primary};
+      font-weight: bold;
+    }
+  }
 `
 
 const LogoLink = styled(StyledLink)`
@@ -60,15 +70,25 @@ export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <>
-      <Nav>
-        <LogoLink to={"/"}>
-          <StyledSvg src={homeLogo} alt='Home logo' />
-        </LogoLink>
-        <Ul>{navCollection}</Ul>
-      </Nav>
-      <Overlay $open={isMenuOpen}></Overlay>
-    </>
+    <Nav>
+      <LogoLink to={"/"}>
+        <StyledSvg src={homeLogo} alt='Home logo' />
+      </LogoLink>
+
+      <Ul $open={isMenuOpen}>
+        <CloseButton onClick={() => setIsMenuOpen(false)}>
+          <StyledSvg src={closeButton} alt='Close button' />
+        </CloseButton>
+        {navCollection}
+      </Ul>
+      <MenuButton onClick={() => setIsMenuOpen(true)}>
+        <StyledSvg src={burgerButton} alt='burgerButton' />
+      </MenuButton>
+      <Overlay
+        onClick={() => setIsMenuOpen(false)}
+        $open={isMenuOpen}
+      ></Overlay>
+    </Nav>
   )
 }
 
@@ -76,19 +96,34 @@ interface OpenProps {
   $open: boolean
 }
 
-const StyledSvg = styled.img`
-  width: 2rem;
-  height: 2rem;
+const MenuButton = styled.button`
+  border: none;
+  background-color: transparent;
+  display: none;
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    display: block;
+  }
+`
+
+const CloseButton = styled(MenuButton)`
+  margin-left: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+`
+
+const StyledSvg = styled.img`
+  width: 2rem;
+  height: 2rem;
 `
 
 const Nav = styled.nav`
-  transition: 2000ms ease-in-out;
   width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
-  height: 5.5svh;
+  height: 3rem;
   display: flex;
   align-items: center;
   position: sticky;
@@ -97,19 +132,43 @@ const Nav = styled.nav`
   z-index: 10;
 `
 
-const Ul = styled.ul`
+const Ul = styled.ul<OpenProps>`
   display: flex;
   list-style: none;
   padding: 0;
   height: 100%;
+
+  z-index: 10;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    li {
+      width: 100%;
+    }
+
+    transition: 200ms ease-in-out;
+
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    right: ${(props) => (props.$open ? "0%" : "-100%")};
+    width: 300px;
+    background-color: ${(props) => props.theme.colors.primary};
+    height: 100svh;
+  }
 `
 
 const Overlay = styled.div<OpenProps>`
-  transition: 2000ms ease-in-out;
-  background-color: ${(props) =>
-    props.$open ? "oklch(0 0 0 / 50%)" : "oklch(0 0 0 / 0%)"};
+  transition: 150ms ease-in-out;
+  background-color: black;
+  opacity: ${(props) => (props.$open ? "50%" : "0%")};
   position: fixed;
+  display: none;
   inset: 0;
-  display: ${(props) => (props.$open ? "block" : "none")};
   z-index: 9;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    display: block;
+    pointer-events: ${(props) => (props.$open ? "auto" : "none")};
+  }
 `
