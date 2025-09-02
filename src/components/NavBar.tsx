@@ -19,7 +19,7 @@ const ROUTES: NavItem[] = [
 ]
 
 const StyledLink = styled(NavLink)`
-  color: ${(props) => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.text.inverse};
   height: 100%;
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@ const navCollection = ROUTES.map((route) => {
 })
 
 export function NavBar() {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <>
@@ -67,7 +67,7 @@ export function NavBar() {
         </LogoLink>
         <Ul>{navCollection}</Ul>
       </Nav>
-      {/* <Overlay $open={isMenuOpen}></Overlay> */}
+      <Overlay $open={isMenuOpen}></Overlay>
     </>
   )
 }
@@ -104,12 +104,12 @@ const Ul = styled.ul`
   height: 100%;
 `
 
-// const Overlay = styled.div<OpenProps>`
-//   transition: 2000ms ease-in-out;
-//   background-color: ${(props) =>
-//     props.$open ? "oklch(0 0 0 / 50%)" : "oklch(0 0 0 / 0%)"};
-//   position: fixed;
-//   inset: 0;
-//   display: ${(props) => (props.$open ? "block" : "none")};
-//   z-index: 9;
-// `
+const Overlay = styled.div<OpenProps>`
+  transition: 2000ms ease-in-out;
+  background-color: ${(props) =>
+    props.$open ? "oklch(0 0 0 / 50%)" : "oklch(0 0 0 / 0%)"};
+  position: fixed;
+  inset: 0;
+  display: ${(props) => (props.$open ? "block" : "none")};
+  z-index: 9;
+`

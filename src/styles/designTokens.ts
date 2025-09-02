@@ -13,9 +13,17 @@ interface Typography {
   }
 }
 
+interface Breakpoints {
+  mobile: string
+  tablet: string
+  laptop: string
+  desktop: string
+}
+
 export interface DesignTokens {
   typography: Typography
   spacing: (factor: number) => string
+  breakpoints: Breakpoints
 }
 
 export const designTokens: DesignTokens = {
@@ -34,4 +42,10 @@ export const designTokens: DesignTokens = {
     },
   },
   spacing: (factor: number) => `${factor * 0.25}rem`,
+  breakpoints: {
+    mobile: "480px",
+    tablet: "768px",
+    laptop: "1024px",
+    desktop: "1280px",
+  },
 }
