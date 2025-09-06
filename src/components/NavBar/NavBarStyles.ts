@@ -166,6 +166,7 @@ export const Ul = styled.ul<OpenProps>`
   height: 100%;
   margin-left: auto;
   z-index: 10;
+  overflow-y: scroll;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     li {
