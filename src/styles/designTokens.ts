@@ -20,10 +20,17 @@ interface Breakpoints {
   desktop: string
 }
 
+interface Transitions {
+  fast: string
+  normal: string
+  slow: string
+}
+
 export interface DesignTokens {
   typography: Typography
   spacing: (factor: number) => string
   breakpoints: Breakpoints
+  transitions: Transitions
 }
 
 export const designTokens: DesignTokens = {
@@ -47,5 +54,10 @@ export const designTokens: DesignTokens = {
     tablet: "768px",
     laptop: "1024px",
     desktop: "1280px",
+  },
+  transitions: {
+    fast: "150ms ease-in-out",
+    normal: "250ms ease-in-out",
+    slow: "450ms ease-in-out",
   },
 }
