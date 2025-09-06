@@ -4,6 +4,7 @@ import styled from "styled-components"
 import burgerButton from "../assets/burgerButton.svg"
 import homeLogo from "../assets/homeLogo.svg"
 import closeButton from "../assets/closeButton.svg"
+import searchIcon from "../assets/searchIcon.svg"
 
 interface NavItem {
   label: string
@@ -55,7 +56,9 @@ const StyledNavLink = styled(StyledLink)`
 `
 
 const LogoLink = styled(StyledLink)`
-  margin-right: auto;
+  @media (max-width: ${(props) => props.theme.breakpoints.laptop}) {
+    display: none;
+  }
 `
 
 const navCollection = ROUTES.map((route) => {
@@ -74,7 +77,10 @@ export function NavBar() {
       <LogoLink to={"/"}>
         <StyledSvg src={homeLogo} alt='Home logo' />
       </LogoLink>
-
+      <Input $open={isMenuOpen} placeholder='Pesquisar' />
+      <Button onClick={() => setIsMenuOpen(true)}>
+        Pesquisar <img src={searchIcon} alt='search' />
+      </Button>
       <Ul $open={isMenuOpen}>
         <CloseButton onClick={() => setIsMenuOpen(false)}>
           <StyledSvg src={closeButton} alt='Close button' />
@@ -95,6 +101,64 @@ export function NavBar() {
 interface OpenProps {
   $open: boolean
 }
+
+const Button = styled.button`
+  background-color: ${(props) => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.primary};
+  border: none;
+  border-radius: 2rem;
+  height: 2rem;
+  display: none;
+  margin-left: 1rem;
+  width: 7rem;
+  font-size: ${(props) => props.theme.typography.sizes.large};
+  img {
+    width: 1rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (min-width: ${(props) =>
+      props.theme.breakpoints.tablet}) and (max-width: ${(props) =>
+      props.theme.breakpoints.laptop}) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`
+
+const Input = styled.input<OpenProps>`
+  border-radius: 2rem;
+  border: none;
+  height: 2rem;
+  padding-left: 0.5rem;
+  width: 30%;
+  margin: auto;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    flex: 1;
+    margin-left: 0.5rem;
+  }
+
+  @media (max-width: ${(props) =>
+      props.theme.breakpoints.laptop}) and (min-width: ${(props) =>
+      props.theme.breakpoints.tablet}) {
+    transition: 250ms ease-in-out;
+
+    display: block;
+    border: 1px solid ${(props) => props.theme.colors.primary};
+    z-index: 10;
+    position: fixed;
+    width: 90%;
+    top: ${(props) => (props.$open ? "25%" : "20%")};
+    left: 50%;
+    translate: -50%;
+    opacity: ${(props) => (props.$open ? "100%" : "0%")};
+    pointer-events: ${(props) => (props.$open ? "auto" : "none")};
+  }
+`
 
 const MenuButton = styled.button`
   border: none;
@@ -137,6 +201,7 @@ const Ul = styled.ul<OpenProps>`
   list-style: none;
   padding: 0;
   height: 100%;
+  margin-left: auto;
 
   z-index: 10;
 
@@ -167,7 +232,7 @@ const Overlay = styled.div<OpenProps>`
   inset: 0;
   z-index: 9;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.laptop}) {
     display: block;
     pointer-events: ${(props) => (props.$open ? "auto" : "none")};
   }
