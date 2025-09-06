@@ -5,6 +5,7 @@ import burgerButton from "../assets/burgerButton.svg"
 import homeLogo from "../assets/homeLogo.svg"
 import closeButton from "../assets/closeButton.svg"
 import searchIcon from "../assets/searchIcon.svg"
+import { GlobalStyle } from "../styles/globalStyle"
 
 interface NavItem {
   label: string
@@ -73,28 +74,31 @@ export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <Nav>
-      <LogoLink to={"/"}>
-        <StyledSvg src={homeLogo} alt='Home logo' />
-      </LogoLink>
-      <Input $open={isMenuOpen} placeholder='Pesquisar' />
-      <Button onClick={() => setIsMenuOpen(true)}>
-        Pesquisar <img src={searchIcon} alt='search' />
-      </Button>
-      <Ul $open={isMenuOpen}>
-        <CloseButton onClick={() => setIsMenuOpen(false)}>
-          <StyledSvg src={closeButton} alt='Close button' />
-        </CloseButton>
-        {navCollection}
-      </Ul>
-      <MenuButton onClick={() => setIsMenuOpen(true)}>
-        <StyledSvg src={burgerButton} alt='burgerButton' />
-      </MenuButton>
-      <Overlay
-        onClick={() => setIsMenuOpen(false)}
-        $open={isMenuOpen}
-      ></Overlay>
-    </Nav>
+    <>
+      <GlobalStyle $noScroll={isMenuOpen} />
+      <Nav>
+        <LogoLink to={"/"}>
+          <StyledSvg src={homeLogo} alt='Home logo' />
+        </LogoLink>
+        <Input $open={isMenuOpen} placeholder='Pesquisar' />
+        <Button onClick={() => setIsMenuOpen(true)}>
+          Pesquisar <img src={searchIcon} alt='search' />
+        </Button>
+        <Ul $open={isMenuOpen}>
+          <CloseButton onClick={() => setIsMenuOpen(false)}>
+            <StyledSvg src={closeButton} alt='Close button' />
+          </CloseButton>
+          {navCollection}
+        </Ul>
+        <MenuButton onClick={() => setIsMenuOpen(true)}>
+          <StyledSvg src={burgerButton} alt='burgerButton' />
+        </MenuButton>
+        <Overlay
+          onClick={() => setIsMenuOpen(false)}
+          $open={isMenuOpen}
+        ></Overlay>
+      </Nav>
+    </>
   )
 }
 
