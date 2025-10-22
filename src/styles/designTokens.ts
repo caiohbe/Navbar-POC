@@ -26,11 +26,16 @@ interface Transitions {
   slow: string
 }
 
+interface Layout {
+  navBarHeight: string
+}
+
 export interface DesignTokens {
   typography: Typography
   spacing: (factor: number) => string
   breakpoints: Breakpoints
   transitions: Transitions
+  layout: Layout
 }
 
 export const designTokens: DesignTokens = {
@@ -40,7 +45,7 @@ export const designTokens: DesignTokens = {
       small: "0.875rem",
       base: "1rem",
       large: "1.125rem",
-      xLarge: "1.25rem",
+      xLarge: "3rem",
     },
     weight: {
       regular: 400,
@@ -59,5 +64,8 @@ export const designTokens: DesignTokens = {
     fast: "150ms ease-in-out",
     normal: "250ms ease-in-out",
     slow: "450ms ease-in-out",
+  },
+  layout: {
+    navBarHeight: "3rem",
   },
 }

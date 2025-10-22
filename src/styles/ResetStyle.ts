@@ -55,4 +55,9 @@ export const ResetStyle = createGlobalStyle`
   #root, #__next {
     isolation: isolate;
   }
+
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: ${({ theme }) => theme.layout.navBarHeight};
+  }
 `

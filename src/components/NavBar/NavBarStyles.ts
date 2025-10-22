@@ -150,10 +150,10 @@ export const StyledSvg = styled.img`
 export const Nav = styled.nav`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.primary};
-  height: 3rem;
+  height: ${({ theme }) => theme.layout.navBarHeight}; //3rem;
   display: flex;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
   right: 0;
   z-index: 10;
